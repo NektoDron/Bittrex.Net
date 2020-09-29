@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>Bittrex.Net</PackageId>
+    <PackageId>NektoDron.Bittrex.Net</PackageId>
     <Authors>JKorf</Authors>
     <PackageVersion>4.1.6</PackageVersion>
     <Description>Bittrex.Net is a .Net wrapper for the Bittrex API, including the SignalR websocket. It includes all features the API provides using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>

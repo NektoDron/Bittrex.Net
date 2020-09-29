@@ -3693,6 +3693,11 @@
             The V2 API base address
             </summary>
         </member>
+        <member name="P:Bittrex.Net.Objects.BittrexClientOptions.ApplicationId">
+            <summary>
+            The Bittrex Application Id
+            </summary>
+        </member>
         <member name="M:Bittrex.Net.Objects.BittrexClientOptions.Copy">
             <summary>
             Copy the options

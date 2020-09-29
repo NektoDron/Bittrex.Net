@@ -66,7 +66,9 @@ namespace Bittrex.Net
         private readonly SHA512 encryptor;
         private readonly object locker;
 
-        public BittrexAuthenticationProviderV3(ApiCredentials credentials) : base(credentials)
+        private readonly string? appId;
+
+        public BittrexAuthenticationProviderV3(ApiCredentials credentials, string? appId = null) : base(credentials)
         {
             if (credentials.Secret == null)
                 throw new ArgumentException("ApiKey/Secret needed");
@@ -74,6 +76,7 @@ namespace Bittrex.Net
             locker = new object();
             encryptorHmac = new HMACSHA512(Encoding.ASCII.GetBytes(credentials.Secret.GetString()));
             encryptor = SHA512.Create();
+            this.appId = appId;
         }
 
         public override Dictionary<string, string> AddAuthenticationToHeaders(string uri, HttpMethod method, Dictionary<string, object> parameters, bool signed, PostParameters postParameterPosition, ArrayParametersSerialization arraySerialization)
@@ -89,8 +92,12 @@ namespace Bittrex.Net
                 result.Add("Api-Key", Credentials.Key.GetString());
             result.Add("Api-Timestamp", Math.Round((DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds).ToString(CultureInfo.InvariantCulture));
             var jsonContent = "";
-            if(method != HttpMethod.Get && method != HttpMethod.Delete)
+            if (method != HttpMethod.Get && method != HttpMethod.Delete)
+            {
                 jsonContent = JsonConvert.SerializeObject(parameters.OrderBy(p => p.Key).ToDictionary(p => p.Key, p => p.Value));
+                if (appId != null)
+                    result.Add("Application-Id", appId!);
+            }
             result.Add("Api-Content-Hash", ByteToString(encryptor.ComputeHash(Encoding.UTF8.GetBytes(jsonContent))).ToLower(CultureInfo.InvariantCulture));
 
             uri = WebUtility.UrlDecode(uri); // Sign needs the query parameters to not be encoded

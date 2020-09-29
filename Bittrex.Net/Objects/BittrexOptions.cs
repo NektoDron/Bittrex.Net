@@ -40,6 +40,11 @@ namespace Bittrex.Net.Objects
         public string BaseAddressV2 { get; set; } = "https://international.bittrex.com";
 
         /// <summary>
+        /// The Bittrex Application Id
+        /// </summary>
+        public string ApplicationId { get; set; }
+
+        /// <summary>
         /// Copy the options
         /// </summary>
         /// <returns></returns>
@@ -47,6 +52,7 @@ namespace Bittrex.Net.Objects
         {
             var copy = Copy<BittrexClientOptions>();
             copy.BaseAddressV2 = BaseAddressV2;
+            copy.ApplicationId = ApplicationId;
             return copy;
         }
     }

@@ -42,7 +42,7 @@ namespace Bittrex.Net
         /// Create a new instance of BittrexClient using the default options
         /// NOTE: The V3 API is in open beta. Errors might happen. If so, please report them on https://github.com/jkorf/bittrex.net
         /// </summary>
-        public BittrexClientV3(BittrexClientOptions options) : base(options, options.ApiCredentials == null ? null : new BittrexAuthenticationProviderV3(options.ApiCredentials))
+        public BittrexClientV3(BittrexClientOptions options) : base(options, options.ApiCredentials == null ? null : new BittrexAuthenticationProviderV3(options.ApiCredentials, options.ApplicationId))
         {
         }
         #endregion
